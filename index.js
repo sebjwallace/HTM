@@ -2,11 +2,14 @@
 var cortex = new Cortex()
 
 var input = new SparseArray(1024,0.1)
-input.randomFill()
+
+for(var i = 400; i < 500; i++)
+  input.indeces[i] = 1
+
 var root = Math.sqrt(input.length)
 
-var output = cortex.spatialPooler(input)
-var output = cortex.spatialPooler(input)
+var output = cortex.spatialPooler.pool(input)
+output = cortex.spatialPooler.pool(input)
 
 console.log(output)
 
@@ -42,6 +45,8 @@ function renderColsDisplay(){
     for(var x = 0; x < root; x++){
       var btn = document.createElement('div')
       btn.setAttribute('style','border:1px solid white;float:left;height:'+(scale-2)+'px;width:'+(scale-2)+'px;background:lightGray;')
+      if(output.indeces[(y*root) + x])
+        btn.style.background = 'grey'
       btn.id = y * root + x
       btn.onmouseover = function(e){selected = parseInt(e.target.id); renderInput()}
       container.appendChild(btn)

@@ -9,12 +9,20 @@ function SparseArray(length,sparsity,indeces){
 
 }
 
+SparseArray.prototype.hasBit = function(index){
+  return this.indeces[index] != null ? true : false
+}
+
+SparseArray.prototype.setBit = function(index,value){
+  this.indeces[index] = value
+}
+
 SparseArray.prototype.union = function(sdr,asObj){
   var union = {}
   for(var i in this.indeces)
-    union[this.indeces[i]] = true
+    union[this.indeces[i]] = 1
   for(var i in sdr.indeces)
-    union[sdr.indeces[i]] = true
+    union[sdr.indeces[i]] = 1
   return asObj ? this.fromObj(union) : union
 }
 
@@ -22,7 +30,7 @@ SparseArray.prototype.overlap = function(sdr,asObj){
   var overlap = {}
   for(var i in sdr.indeces)
     if(this.indeces[i])
-      overlap[i] = true
+      overlap[i] = 1
   return asObj ? this.fromObj(overlap) : overlap
 }
 
@@ -42,7 +50,7 @@ SparseArray.prototype.match = function(sdr,threshold){
 
 SparseArray.prototype.randomFill = function(){
   for(var i = 0; i < this.limit; i++)
-    this.indeces[randomInt(0,this.length-1)] = true
+    this.indeces[randomInt(0,this.length-1)] = 1
 }
 
 SparseArray.prototype.fromObj = function(obj,length,sparsity){
